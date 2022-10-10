@@ -13,6 +13,7 @@ class Search extends React.Component {
       toggle: false,
       categoryRadio: '',
       ArrayCategoria: [],
+      itensCarrinhos: [],
     };
   }
 
@@ -21,10 +22,10 @@ class Search extends React.Component {
     this.setState({ category: newRequest });
   }
 
-  /* async componentDidUpdate() {
-    const x = await this.handleClickSelect();
-    return x;
-  } */
+  componentDidUpdate() {
+    const { itensCarrinhos } = this.state;
+    localStorage.setItem('Carrinho', JSON.stringify(itensCarrinhos));
+  }
 
   onInputChange = ({ target: { value, type, name, id } }) => {
     const valor = type === 'radio' ? id : value;
@@ -36,7 +37,6 @@ class Search extends React.Component {
   handleClickSelect = async () => {
     const { categoryRadio } = this.state;
     const request = await getProductsFromCategoryAndQuery(categoryRadio, null);
-    // console.log(request.results);
     this.setState({
       ArrayCategoria: request.results,
     });
@@ -50,7 +50,6 @@ class Search extends React.Component {
         toggle: true,
       });
     } else {
-      // console.log(request.results);
       this.setState({
         products: request.results,
         toggle: false,
@@ -68,6 +67,7 @@ class Search extends React.Component {
       ArrayCategoria } = this.state;
     const queryResults = products.map((element, i) => (
       <div
+        className="product-container"
         data-testid="product"
         key={ i }
       >
@@ -76,11 +76,23 @@ class Search extends React.Component {
           <p>{element.title}</p>
           <p>{element.price}</p>
         </NavLink>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+          onClick={ () => {
+            this.setState((prev) => ({
+              itensCarrinhos: [...prev.itensCarrinhos, JSON.stringify(element)],
+            }));
+          } }
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     ));
     const categoryResults = ArrayCategoria.map((e, i) => (
       <div
         data-testid="product"
+        className="product-container"
         key={ i }
       >
         <NavLink data-testid="product-detail-link" to={ e.id }>
@@ -88,6 +100,17 @@ class Search extends React.Component {
           <p>{e.title}</p>
           <p>{e.price}</p>
         </NavLink>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+          onClick={ () => {
+            this.setState((prev) => ({
+              itensCarrinhos: [...prev.itensCarrinhos, e],
+            }));
+          } }
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     ));
     return (
