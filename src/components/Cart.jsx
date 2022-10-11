@@ -7,9 +7,11 @@ class Cart extends React.Component {
 
   componentDidMount() {
     const dados = localStorage.getItem('Carrinho');
-    this.setState({
-      productArray: JSON.parse(dados),
-    });
+    if (dados) {
+      this.setState({
+        productArray: JSON.parse(dados),
+      });
+    }
   }
 
   render() {
