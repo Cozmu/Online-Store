@@ -18,13 +18,15 @@ class Search extends React.Component {
   }
 
   async componentDidMount() {
+    // console.log(typeof JSON.parse(storage));
+    const storage = localStorage.getItem('Carrinho');
+    if (storage) {
+      this.setState({
+        itensCarrinhos: JSON.parse(storage),
+      });
+    }
     const newRequest = await getCategories();
     this.setState({ category: newRequest });
-  }
-
-  componentDidUpdate() {
-    const { itensCarrinhos } = this.state;
-    localStorage.setItem('Carrinho', JSON.stringify(itensCarrinhos));
   }
 
   onInputChange = ({ target: { value, type, name, id } }) => {
@@ -58,6 +60,15 @@ class Search extends React.Component {
     }
   };
 
+  addToCart = (produto) => {
+    this.setState((prev) => ({
+      itensCarrinhos: [...prev.itensCarrinhos, produto],
+    }), () => {
+      const { itensCarrinhos } = this.state;
+      localStorage.setItem('Carrinho', JSON.stringify(itensCarrinhos));
+    });
+  };
+
   render() {
     const { category,
       query,
@@ -79,11 +90,7 @@ class Search extends React.Component {
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ () => {
-            this.setState((prev) => ({
-              itensCarrinhos: [...prev.itensCarrinhos, JSON.stringify(element)],
-            }));
-          } }
+          onClick={ () => this.addToCart(element) }
         >
           Adicionar ao Carrinho
         </button>
@@ -103,11 +110,7 @@ class Search extends React.Component {
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ () => {
-            this.setState((prev) => ({
-              itensCarrinhos: [...prev.itensCarrinhos, e],
-            }));
-          } }
+          onClick={ () => this.addToCart(e) }
         >
           Adicionar ao Carrinho
         </button>
@@ -116,7 +119,7 @@ class Search extends React.Component {
     return (
       <>
         <nav>
-          <NavLink to="/cart" data-testid="shopping-cart-button">Pesquisar</NavLink>
+          <NavLink to="/cart" data-testid="shopping-cart-button">Carrinho</NavLink>
         </nav>
         <div>
           <p data-testid="home-initial-message">
