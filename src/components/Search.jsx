@@ -39,9 +39,16 @@ class Search extends React.Component {
   handleClickSelect = async () => {
     const { categoryRadio } = this.state;
     const request = await getProductsFromCategoryAndQuery(categoryRadio, null);
-    this.setState({
-      ArrayCategoria: request.results,
-    });
+    if (request.results.length === 0) {
+      this.setState({
+        toggle: true,
+      });
+    } else {
+      this.setState({
+        ArrayCategoria: request.results,
+        toggle: false,
+      });
+    }
   };
 
   handleClick = async () => {
