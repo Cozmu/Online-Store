@@ -18,7 +18,6 @@ class Search extends React.Component {
   }
 
   async componentDidMount() {
-    // console.log(typeof JSON.parse(storage));
     const storage = localStorage.getItem('Carrinho');
     if (storage) {
       this.setState({
@@ -143,7 +142,6 @@ class Search extends React.Component {
                 id={ element.id }
                 name="categoryRadio"
                 onChange={ this.onInputChange }
-                // checked={ this.handleClickSelect }
               />
               { element.name }
             </label>

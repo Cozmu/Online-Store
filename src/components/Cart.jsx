@@ -8,7 +8,7 @@ class Cart extends React.Component {
 
   componentDidMount() {
     const dados = JSON.parse(localStorage.getItem('Carrinho')) || [];
-    const dadosTratados = [...new Map(dados.map(item => [item['id'], item])).values()];
+    const dadosTratados = [...new Map(dados.map((item) => [item.id, item])).values()];
 
     if (dados) {
       this.setState({
@@ -20,12 +20,13 @@ class Cart extends React.Component {
 
   removeProduct = (e) => {
     this.setState((prev) => ({
-      productArray: [...prev.productArray.filter((element) => element.id !== e.target.parentNode.id)]
+      productArray: [...prev.productArray
+        .filter((element) => element.id !== e.target.parentNode.id)],
     }), () => {
       const { productArray } = this.state;
       localStorage.setItem('Carrinho', JSON.stringify(productArray));
-    }); 
-  }
+    });
+  };
 
   addProduct = (objeto) => {
     this.setState((prev) => ({
@@ -33,37 +34,34 @@ class Cart extends React.Component {
     }), () => {
       const { localStorageArray } = this.state;
       localStorage.setItem('Carrinho', JSON.stringify(localStorageArray));
-      //console.log(localStorageArray);
     });
-  }
+  };
 
   rProduct = (event, objeto) => {
     const { localStorageArray } = this.state;
-    const newArray = [...localStorageArray]
+    const newArray = [...localStorageArray];
     const newArray2 = newArray.filter((element) => element.id === objeto.id);
     const newArray3 = newArray.filter((element) => element.id !== objeto.id);
     newArray2.pop();
     if (newArray2.length >= 1) {
       this.setState({
-        localStorageArray: [...newArray2, ...newArray3], 
+        localStorageArray: [...newArray2, ...newArray3],
       }, () => {
-        const { localStorageArray } = this.state;
-        console.log(localStorageArray);
+        // const { localStorageArray } = this.state;
         localStorage.setItem('Carrinho', JSON.stringify(localStorageArray));
       });
     }
-    //console.log(newArray2)
-  }
+  };
 
   render() {
     const { productArray, localStorageArray } = this.state;
-    const quantidadeProdutos = (<div
-      /*data-testid="shopping-cart-product-quantity"*/
-    >
-      <br /><br />
-      Quantidade total de produtos: {productArray.length}
-
-    </div>);
+    const quantidadeProdutos = (
+      <div>
+        <br />
+        <br />
+        Quantidade total de produtos:
+        {productArray.length}
+      </div>);
 
     const vazio = (
       <p
@@ -73,7 +71,7 @@ class Cart extends React.Component {
       </p>
     );
     const compras = productArray.map((e, i) => (
-      <div id={e.id} key={ i }>
+      <div id={ e.id } key={ i }>
         <img src={ e.thumbnail } alt={ e.id } />
         <p
           data-testid="shopping-cart-product-name"
@@ -81,18 +79,38 @@ class Cart extends React.Component {
           {e.title}
         </p>
         <p>{e.price}</p>
-        <button data-testid="product-increase-quantity" onClick={() => this.addProduct(e)}>+</button>
-        <p data-testid='shopping-cart-product-quantity'>{ // VÁRIOS DATA-TESTS REPETIDOS, DANDO ERRO! CONFLITO NA 8 E 10
-        localStorageArray.filter((element) => e.id === element.id).length
-        }</p>
-        <button data-testid="product-decrease-quantity" onClick={(event) => this.rProduct(event, e)}>-</button>
-        <button data-testid="remove-product" onClick={this.removeProduct}>Remover produto</button>
+        <button
+          type="button"
+          data-testid="product-increase-quantity"
+          onClick={ () => this.addProduct(e) }
+        >
+          +
+        </button>
+        <p data-testid="shopping-cart-product-quantity">
+          { // VÁRIOS DATA-TESTS REPETIDOS, DANDO ERRO! CONFLITO NA 8 E 10
+            localStorageArray.filter((element) => e.id === element.id).length
+          }
+        </p>
+        <button
+          type="button"
+          data-testid="product-decrease-quantity"
+          onClick={ (event) => this.rProduct(event, e) }
+        >
+          -
+        </button>
+        <button
+          type="button"
+          data-testid="remove-product"
+          onClick={ this.removeProduct }
+        >
+          Remover produto
+        </button>
       </div>
     ));
     return (
       <div>
         {productArray.length === 0 ? vazio : compras}
-        {(productArray.length !== 0 )&& quantidadeProdutos}
+        {(productArray.length !== 0) && quantidadeProdutos}
       </div>
     );
   }

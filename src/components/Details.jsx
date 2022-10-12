@@ -1,4 +1,4 @@
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { getProductById } from '../services/api';
 
@@ -26,10 +26,12 @@ class Details extends React.Component {
     this.setState((prev) => ({
       itensCarrinhos: [...prev.itensCarrinhos, objProduto],
     }), () => {
-      const { itensCarrinhos, objProduto } = this.state;
+      const { itensCarrinhos } = this.state;
       console.log(itensCarrinhos);
       if (localStorage.getItem('Carrinho')) {
-        localStorage.setItem('Carrinho', JSON.stringify([...JSON.parse(localStorage.getItem('Carrinho')), itensCarrinhos[0]]));
+        localStorage
+          .setItem('Carrinho', JSON.stringify([...JSON
+            .parse(localStorage.getItem('Carrinho')), itensCarrinhos[0]]));
       } else {
         localStorage.setItem('Carrinho', JSON.stringify(itensCarrinhos));
       }
