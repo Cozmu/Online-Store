@@ -1,0 +1,138 @@
+* {
+  border: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.header-container {
+  align-items: center;
+  background-color: rgb(0, 59, 229);
+  display: flex;
+  height: 70px;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.query {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  height: 35px;
+  outline: 0;
+  padding: 10px;
+  width: 238px;
+}
+
+.query-button {
+  background-color: white;
+  border-bottom-right-radius: 2px;
+  border-left: 1px solid #e5e5e5;
+  border-top-right-radius: 2px;
+  cursor: pointer;
+  height: 35px;
+  margin-top: 1px;
+  width: 40px;
+}
+
+.logo-online-store {
+  margin-right: 15%;
+}
+
+.shopping-cart-button {
+  color: white;
+  font-size: 35px;
+}
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.home-initial-message {
+  padding: 10px;
+  width: 100%;
+}
+
+.category-container {
+  padding-left: 10px;
+  width: 25%;
+}
+
+.category-container h1 {
+  margin-left: 10px;
+}
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.category {
+  align-items: center;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+}
+
+.category:hover {
+  background-color: #e5e5e5;
+}
+
+.product-container {
+  background-color: rgb(236, 236, 236);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-left: 10px;
+  padding: 20px;
+  width: 75%;
+}
+
+.product-cards {
+  align-items: center;
+  background-color: white;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  height: 370px;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+  width: 279.6px;
+}
+
+.product-cards:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 1px 3px 8px;
+}
+
+.product-cards img {
+  height: 170px;
+  width: 170px;
+}
+
+.product-cards button {
+  background-color: rgb(49, 194, 141);
+  border-radius: 3px;
+  color: white;
+  height: 38.63px;
+  width: 200px;
+}
+
+.product-cards button:active {
+  background-color: rgb(44, 174, 126);
+}
+
+.product-cards p {
+  color: black;
+  text-decoration: underline;
+  text-decoration-color: white;
+}
+
+.product-title {
+  line-height: 1.2em;
+  max-height: 40px;
+  overflow: hidden;
+}

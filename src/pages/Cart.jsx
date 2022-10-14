@@ -47,7 +47,7 @@ class Cart extends React.Component {
       this.setState({
         localStorageArray: [...newArray2, ...newArray3],
       }, () => {
-        // const { localStorageArray } = this.state;
+        const { localStorageArray } = this.state;
         localStorage.setItem('Carrinho', JSON.stringify(localStorageArray));
       });
     }

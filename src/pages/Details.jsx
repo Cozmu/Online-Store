@@ -27,7 +27,6 @@ class Details extends React.Component {
       itensCarrinhos: [...prev.itensCarrinhos, objProduto],
     }), () => {
       const { itensCarrinhos } = this.state;
-      console.log(itensCarrinhos);
       if (localStorage.getItem('Carrinho')) {
         localStorage
           .setItem('Carrinho', JSON.stringify([...JSON

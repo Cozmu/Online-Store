@@ -1,6 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { ImSearch } from 'react-icons/im';
+import { HiOutlineShoppingCart } from 'react-icons/hi';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import '../css/Search.css';
+import logo from '../img/logo.png';
 
 class Search extends React.Component {
   constructor() {
@@ -84,14 +88,21 @@ class Search extends React.Component {
       ArrayCategoria } = this.state;
     const queryResults = products.map((element, i) => (
       <div
-        className="product-container"
+        className="product-cards"
         data-testid="product"
         key={ i }
       >
         <NavLink data-testid="product-detail-link" to={ element.id }>
           <img src={ element.thumbnail } alt={ element.id } />
-          <p>{element.title}</p>
-          <p>{element.price}</p>
+          <p
+            className="product-title"
+          >
+            {element.title}
+          </p>
+          <p>
+            R$
+            {element.price}
+          </p>
         </NavLink>
         <button
           type="button"
@@ -105,13 +116,20 @@ class Search extends React.Component {
     const categoryResults = ArrayCategoria.map((e, i) => (
       <div
         data-testid="product"
-        className="product-container"
+        className="product-cards"
         key={ i }
       >
         <NavLink data-testid="product-detail-link" to={ e.id }>
           <img src={ e.thumbnail } alt={ e.id } />
-          <p>{e.title}</p>
-          <p>{e.price}</p>
+          <p
+            className="product-title"
+          >
+            {e.title}
+          </p>
+          <p>
+            R$
+            {e.price}
+          </p>
         </NavLink>
         <button
           type="button"
@@ -124,49 +142,83 @@ class Search extends React.Component {
     ));
     return (
       <>
-        <nav>
-          <NavLink to="/cart" data-testid="shopping-cart-button">Carrinho</NavLink>
-        </nav>
-        <div>
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
-        </div>
-
-        <div>
-          { category.map((element, index) => (
-            <label htmlFor={ element.id } data-testid="category" key={ index }>
+        <section className="header-container">
+          <div className="search-container">
+            <label htmlFor="query">
               <input
-                type="radio"
-                value={ element.name }
-                id={ element.id }
-                name="categoryRadio"
+                type="text"
+                name="query"
+                id="query"
+                className="query"
+                value={ query }
+                placeholder="Digite oque você busca"
                 onChange={ this.onInputChange }
+                data-testid="query-input"
               />
-              { element.name }
             </label>
-          )) }
-        </div>
-        <div>
-          <label htmlFor="query">
-            <input
-              type="text"
-              name="query"
-              id="query"
-              value={ query }
-              onChange={ this.onInputChange }
-              data-testid="query-input"
-            />
-          </label>
-          <button
-            type="button"
-            onClick={ this.handleClick }
-            data-testid="query-button"
-          >
-            pesquisar
-          </button>
-          {toggle && <p>Nenhum produto foi encontrado</p> }
-          {categoryRadio.length > 0 ? categoryResults : queryResults }
+            <button
+              type="button"
+              onClick={ this.handleClick }
+              data-testid="query-button"
+              className="query-button"
+            >
+              <ImSearch />
+            </button>
+          </div>
+          <img
+            src={ logo }
+            alt="logo-online-store"
+            className="logo-online-store"
+          />
+          <nav>
+            <NavLink
+              to="/cart"
+              data-testid="shopping-cart-button"
+              className="shopping-cart-button"
+            >
+              <HiOutlineShoppingCart />
+            </NavLink>
+          </nav>
+        </section>
+        <div className="container">
+          <div className="category-container">
+            <h1>Categorias</h1>
+            <hr />
+            { category.map((element, index) => (
+              <section
+                className="category-card"
+                key={ index }
+              >
+                <label
+                  className="category"
+                  htmlFor={ element.id }
+                  data-testid="category"
+                >
+                  <input
+                    type="radio"
+                    value={ element.name }
+                    id={ element.id }
+                    name="categoryRadio"
+                    onChange={ this.onInputChange }
+                  />
+                  { element.name }
+                </label>
+              </section>
+            )) }
+          </div>
+          <section className="product-container">
+            {toggle && <p>Nenhum produto foi encontrado</p> }
+            {categoryRadio.length > 0 ? categoryResults : queryResults }
+            {(categoryRadio.length === 0 && query.length === 0)
+             && (
+               <div className="home-initial-message">
+                 <p
+                   data-testid="home-initial-message"
+                 >
+                   Digite algum termo de pesquisa ou escolha uma categoria.
+                 </p>
+               </div>)}
+          </section>
         </div>
       </>
     );

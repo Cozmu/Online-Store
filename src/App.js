@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Cart from './components/Cart';
-import Details from './components/Details';
-import Search from './components/Search';
+import Cart from './pages/Cart';
+import Details from './pages/Details';
+import Search from './pages/Search';
 
 class App extends React.Component {
   render() {
