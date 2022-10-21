@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+// import { IoReturnUpBack } from 'react-icons/io';
 import { getProductById } from '../services/api';
+import '../css/Details.css';
 
 class Details extends React.Component {
   state = {
@@ -42,26 +45,52 @@ class Details extends React.Component {
 
     return (
       <>
-        <button
-          data-testid="shopping-cart-button"
-          type="button"
-          onClick={ () => {
-            const { history } = this.props;
-            history.push('/cart');
-          } }
-        >
-          Carrinho
-        </button>
-        <p data-testid="product-detail-name">{title}</p>
-        <img data-testid="product-detail-image" src={ thumbnail } alt="" />
-        <p data-testid="product-detail-price">{price}</p>
-        <button
-          type="button"
-          data-testid="product-detail-add-to-cart"
-          onClick={ () => this.addToCart(produto) }
-        >
-          ADICIONAR AO CARRINHO
-        </button>
+        <div className="header-container">
+          <button
+            data-testid="shopping-cart-button"
+            type="button"
+            onClick={ () => {
+              const { history } = this.props;
+              history.push('/cart');
+            } }
+          >
+            Carrinho
+          </button>
+        </div>
+        <div className="conteudo">
+          <div className="container-view">
+            <NavLink to="/">
+              {/* <IoReturnUpBack /> */}
+              Voltar
+            </NavLink>
+            <section className="detail-image-container">
+              <p
+                className="product-detail-name"
+                data-testid="product-detail-name"
+              >
+                {title}
+              </p>
+              <img
+                data-testid="product-detail-image"
+                src={ thumbnail }
+                alt=""
+                className="product-detail-image"
+              />
+            </section>
+          </div>
+          <section className="detail-container">
+            <div className="direita">
+              <p data-testid="product-detail-price">{price}</p>
+              <button
+                type="button"
+                data-testid="product-detail-add-to-cart"
+                onClick={ () => this.addToCart(produto) }
+              >
+                ADICIONAR AO CARRINHO
+              </button>
+            </div>
+          </section>
+        </div>
       </>
     );
   }
