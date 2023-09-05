@@ -86,11 +86,11 @@ class Search extends React.Component {
       toggle,
       categoryRadio,
       ArrayCategoria } = this.state;
-    const queryResults = products.map((element, i) => (
+    const queryResults = products.map((element) => (
       <div
         className="product-cards"
         data-testid="product"
-        key={ i }
+        key={ element.id }
       >
         <NavLink data-testid="product-detail-link" to={ element.id }>
           <img src={ element.thumbnail } alt={ element.id } />
@@ -113,11 +113,11 @@ class Search extends React.Component {
         </button>
       </div>
     ));
-    const categoryResults = ArrayCategoria.map((e, i) => (
+    const categoryResults = ArrayCategoria.map((e) => (
       <div
         data-testid="product"
         className="product-cards"
-        key={ i }
+        key={ e.id }
       >
         <NavLink data-testid="product-detail-link" to={ e.id }>
           <img src={ e.thumbnail } alt={ e.id } />
@@ -184,10 +184,10 @@ class Search extends React.Component {
           <div className="category-container">
             <h1>Categorias</h1>
             <hr />
-            { category.map((element, index) => (
+            { category.map((element) => (
               <section
                 className="category-card"
-                key={ index }
+                key={ element.id }
               >
                 <label
                   className="category"

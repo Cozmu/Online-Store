@@ -47,6 +47,7 @@ class Cart extends React.Component {
       this.setState({
         localStorageArray: [...newArray2, ...newArray3],
       }, () => {
+        // eslint-disable-next-line no-shadow
         const { localStorageArray } = this.state;
         localStorage.setItem('Carrinho', JSON.stringify(localStorageArray));
       });
@@ -70,8 +71,8 @@ class Cart extends React.Component {
         Seu carrinho está vazio.
       </p>
     );
-    const compras = productArray.map((e, i) => (
-      <div id={ e.id } key={ i }>
+    const compras = productArray.map((e) => (
+      <div id={ e.id } key={ e.id }>
         <img src={ e.thumbnail } alt={ e.id } />
         <p
           data-testid="shopping-cart-product-name"

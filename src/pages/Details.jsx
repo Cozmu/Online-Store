@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-// import { IoReturnUpBack } from 'react-icons/io';
 import { getProductById } from '../services/api';
 import '../css/Details.css';
 
@@ -60,7 +59,6 @@ class Details extends React.Component {
         <div className="conteudo">
           <div className="container-view">
             <NavLink to="/">
-              {/* <IoReturnUpBack /> */}
               Voltar
             </NavLink>
             <section className="detail-image-container">
