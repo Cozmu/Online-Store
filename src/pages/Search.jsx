@@ -18,6 +18,7 @@ class Search extends React.Component {
       categoryRadio: '',
       ArrayCategoria: [],
       itensCarrinhos: [],
+      isChecked: false,
     };
   }
 
@@ -36,19 +37,21 @@ class Search extends React.Component {
     const valor = type === 'radio' ? id : value;
     this.setState({
       [name]: valor,
-    }, () => this.handleClickSelect());
+    }, () => {
+      if (type === 'radio') {
+        this.handleClickSelect();
+      }
+    });
   };
 
   handleClickSelect = async () => {
     const { categoryRadio } = this.state;
+    this.setState({ isChecked: true });
     const request = await getProductsFromCategoryAndQuery(categoryRadio, null);
-    if (request.results.length === 0) {
-      this.setState({
-        toggle: true,
-      });
-    } else {
+    if (request.results.length > 0) {
       this.setState({
         ArrayCategoria: request.results,
+        query: '',
         toggle: false,
       });
     }
@@ -59,13 +62,18 @@ class Search extends React.Component {
     const request = await getProductsFromCategoryAndQuery(null, query);
     if (request.results.length === 0) {
       this.setState({
+        ArrayCategoria: [],
+        products: [],
+        categoryRadio: '',
         toggle: true,
+        isChecked: false,
       });
     } else {
       this.setState({
         products: request.results,
         toggle: false,
         categoryRadio: '',
+        isChecked: false,
       });
     }
   };
@@ -80,12 +88,15 @@ class Search extends React.Component {
   };
 
   render() {
-    const { category,
+    const {
+      category,
       query,
       products,
       toggle,
       categoryRadio,
-      ArrayCategoria } = this.state;
+      ArrayCategoria,
+      isChecked,
+    } = this.state;
     const queryResults = products.map((element) => (
       <div
         className="product-cards"
@@ -200,6 +211,7 @@ class Search extends React.Component {
                     id={ element.id }
                     name="categoryRadio"
                     onChange={ this.onInputChange }
+                    checked={ isChecked }
                   />
                   { element.name }
                 </label>
