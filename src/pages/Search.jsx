@@ -18,7 +18,7 @@ class Search extends React.Component {
       categoryRadio: '',
       ArrayCategoria: [],
       itensCarrinhos: [],
-      isChecked: false,
+      // isChecked: false,
     };
   }
 
@@ -46,7 +46,7 @@ class Search extends React.Component {
 
   handleClickSelect = async () => {
     const { categoryRadio } = this.state;
-    this.setState({ isChecked: true });
+    // this.setState({ isChecked: true });
     const request = await getProductsFromCategoryAndQuery(categoryRadio, null);
     if (request.results.length > 0) {
       this.setState({
@@ -66,14 +66,14 @@ class Search extends React.Component {
         products: [],
         categoryRadio: '',
         toggle: true,
-        isChecked: false,
+        // isChecked: false,
       });
     } else {
       this.setState({
         products: request.results,
         toggle: false,
         categoryRadio: '',
-        isChecked: false,
+        // isChecked: false,
       });
     }
   };
@@ -95,7 +95,7 @@ class Search extends React.Component {
       toggle,
       categoryRadio,
       ArrayCategoria,
-      isChecked,
+      // isChecked,
     } = this.state;
     const queryResults = products.map((element) => (
       <div
@@ -172,8 +172,9 @@ class Search extends React.Component {
               onClick={ this.handleClick }
               data-testid="query-button"
               className="query-button"
+              disabled={ query.length === 0 }
             >
-              <ImSearch />
+              <ImSearch className="icon" />
             </button>
           </div>
           <img
@@ -211,7 +212,7 @@ class Search extends React.Component {
                     id={ element.id }
                     name="categoryRadio"
                     onChange={ this.onInputChange }
-                    checked={ isChecked }
+                    // checked={ isChecked }
                   />
                   { element.name }
                 </label>
@@ -219,13 +220,14 @@ class Search extends React.Component {
             )) }
           </div>
           <section className="product-container">
-            {toggle && <p>Nenhum produto foi encontrado</p> }
+            {toggle && <p className="not-found">Nenhum produto foi encontrado</p> }
             {categoryRadio.length > 0 ? categoryResults : queryResults }
             {(categoryRadio.length === 0 && query.length === 0)
              && (
                <div className="home-initial-message">
                  <p
                    data-testid="home-initial-message"
+                   className="initial-message"
                  >
                    Digite algum termo de pesquisa ou escolha uma categoria.
                  </p>

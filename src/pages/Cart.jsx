@@ -1,4 +1,9 @@
 import React from 'react';
+import { TiArrowBack } from 'react-icons/ti';
+import { NavLink } from 'react-router-dom';
+import { MdDelete } from 'react-icons/md';
+import logo from '../img/logo.png';
+import '../css/Cart.css';
 
 class Cart extends React.Component {
   state = {
@@ -57,22 +62,35 @@ class Cart extends React.Component {
   render() {
     const { productArray, localStorageArray } = this.state;
     const quantidadeProdutos = (
-      <div>
-        <br />
-        <br />
-        Quantidade total de produtos:
-        {productArray.length}
+      <div
+        className="total-products"
+      >
+        <p>
+          Quantidade total de produtos:
+        </p>
+        <h3 className="length">
+          {productArray.length}
+        </h3>
       </div>);
 
     const vazio = (
-      <p
-        data-testid="shopping-cart-empty-message"
-      >
-        Seu carrinho está vazio.
-      </p>
+      <div>
+        <p
+          data-testid="shopping-cart-empty-message"
+        >
+          Seu carrinho está vazio.
+        </p>
+      </div>
     );
     const compras = productArray.map((e) => (
-      <div id={ e.id } key={ e.id }>
+      <div className="car-container" id={ e.id } key={ e.id }>
+        <button
+          type="button"
+          data-testid="remove-product"
+          onClick={ this.removeProduct }
+        >
+          <MdDelete />
+        </button>
         <img src={ e.thumbnail } alt={ e.id } />
         <p
           data-testid="shopping-cart-product-name"
@@ -80,36 +98,42 @@ class Cart extends React.Component {
           {e.title}
         </p>
         <p>{e.price}</p>
-        <button
-          type="button"
-          data-testid="product-increase-quantity"
-          onClick={ () => this.addProduct(e) }
-        >
-          +
-        </button>
-        <p data-testid="shopping-cart-product-quantity">
-          { // VÁRIOS DATA-TESTS REPETIDOS, DANDO ERRO! CONFLITO NA 8 E 10
-            localStorageArray.filter((element) => e.id === element.id).length
-          }
-        </p>
-        <button
-          type="button"
-          data-testid="product-decrease-quantity"
-          onClick={ (event) => this.rProduct(event, e) }
-        >
-          -
-        </button>
-        <button
-          type="button"
-          data-testid="remove-product"
-          onClick={ this.removeProduct }
-        >
-          Remover produto
-        </button>
+        <section className="quantidade">
+          <button
+            type="button"
+            data-testid="product-increase-quantity"
+            onClick={ () => this.addProduct(e) }
+          >
+            +
+          </button>
+          <p data-testid="shopping-cart-product-quantity">
+            { // VÁRIOS DATA-TESTS REPETIDOS, DANDO ERRO! CONFLITO NA 8 E 10
+              localStorageArray.filter((element) => e.id === element.id).length
+            }
+          </p>
+          <button
+            type="button"
+            data-testid="product-decrease-quantity"
+            onClick={ (event) => this.rProduct(event, e) }
+          >
+            -
+          </button>
+        </section>
+
       </div>
     ));
     return (
       <div>
+        <header className="header-container">
+          <NavLink className="icon-back" to="/">
+            <TiArrowBack />
+          </NavLink>
+          <img
+            src={ logo }
+            alt="logo-online-store"
+            className="logo-online-store-cart"
+          />
+        </header>
         {productArray.length === 0 ? vazio : compras}
         {(productArray.length !== 0) && quantidadeProdutos}
       </div>

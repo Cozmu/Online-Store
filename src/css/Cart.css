@@ -1,0 +1,43 @@
+.car-container {
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+  display: flex;
+  justify-content: space-between;
+  margin: 50px auto;
+  padding: 10px;
+  width: 70%;
+}
+
+.car-container button {
+  background-color: rgb(235, 235, 235);
+  border-radius: 50%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+}
+
+.quantidade {
+  display: flex;
+}
+
+.total-products {
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  margin: auto;
+  width: 70%;
+}
+
+.length {
+  background-color: rgb(236, 236, 236);
+  border-radius: 2px;
+  margin-left: 3px;
+  padding: 5px;
+  text-align: center;
+}
