@@ -2,7 +2,9 @@
 
 #### O projeto "Online Store" é um protótipo de aplicação React que simula uma loja online, usando a API do Mercado Livre para exibir produtos. Os usuários podem explorar produtos, adicioná-los a um carrinho fictício e praticar o processo de compra online. É uma ferramenta educacional e prática para desenvolvedores React.
 
-## (FOTO)
+<div style="margin-top:15px">
+  <img alt="exibição do projeto" src="cap.png">
+</div>
 
 ## Tecnologias :
 
